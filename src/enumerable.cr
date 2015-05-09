@@ -63,16 +63,9 @@ module Enumerable(T)
   end
 
   def each_slice(count : Int)
-    slice = Array(T).new(count)
-    each do |elem|
-      slice << elem
-      if slice.size == count
-        yield slice
-        slice = Array(T).new(count)
-      end
+    each_slice(count).each do |slice|
+      yield slice
     end
-    yield slice unless slice.empty?
-    nil
   end
 
   def each_slice(count : Int)
